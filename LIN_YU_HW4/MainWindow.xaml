@@ -1,0 +1,66 @@
+﻿<Window x:Class="LIN_YU_HW4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LIN_YU_HW4"
+        mc:Ignorable="d"
+        KeyUp="Window_KeyUp_ESC"
+        KeyDown="Window_KeyDown_CTRL_X"
+        Title="Simple Drawing App" Height="350" Width="525">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Margin="0,0,0,1">
+            <Menu DockPanel.Dock="Top" Height="23">
+                <MenuItem Header="Main" RenderTransformOrigin="-1.896,0.643" HorizontalAlignment="Left" Width="39" Height="23">
+                    <MenuItem Header="Reset, Ctrl+X" Click="MenuItem_Click_Reset"/>
+                    <MenuItem Header="Save, Ctrl+X" Click="MenuItem_Click_Save_As"/>
+                    <MenuItem Header="Exit, Esc" Click="MenuItem_Click_Exit"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Name="pane">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Name="pane2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Shape" Grid.Row="0" Grid.Column="0" Height="25" VerticalAlignment="Stretch"/>
+                <Label Content="Fill Color" Grid.Row="1" Grid.Column="0" Height="25" VerticalAlignment="Stretch"/>
+                <Label Content="Stroke Thickness" Grid.Row="2" Grid.Column="0" Height="25" VerticalAlignment="Stretch"/>
+                <Label Content="Stroke Color" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Height="25"/>
+
+                <ComboBox Name="ComboBox_Shape" Grid.Row="0" Grid.Column="1" Height="20" Width="45" SelectionChanged="ComboBox_Shape_Selected"/>
+                <ComboBox Name="ComboBox_FillColor" Grid.Row="1" Grid.Column="1" Height="20" Width="45" SelectionChanged="ComboBox_FillColor_Selected"/>
+                <TextBox Name="textBox" Grid.Row="2" Grid.Column="1" Height="20" Width="45" TextChanged="textBox_TextChanged"/>
+                <ComboBox Name="ComboBox_StrokeColor" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Height="20" Width="45" SelectionChanged="ComboBox_StrokeColor_Selected"/>
+            </Grid>
+
+            <Border Name ="border" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black" Grid.Column="1" BorderThickness="2">
+                <Canvas Name="canvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" MouseUp="Canvas_MouseUp">
+                    <Canvas.Background>
+                        <SolidColorBrush Color="White" Opacity="0"/>
+                    </Canvas.Background>
+                </Canvas>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
