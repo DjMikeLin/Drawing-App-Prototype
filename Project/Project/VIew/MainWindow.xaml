@@ -1,0 +1,79 @@
+﻿<Window x:Class="Project.View.MainWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mvvm="clr-namespace:Project.ViewModel"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.View"
+        mc:Ignorable="d"
+        KeyDown="Window_KeyDown"
+        KeyUp="Window_KeyUp"
+        Title="Simple Drawing App" Height="350" Width="525">
+    <Window.DataContext>
+        <mvvm:DrawingAppViewModel x:Name="DrawingAppViewModel"/>
+    </Window.DataContext>
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Margin="0,0,0,1">
+            <Menu DockPanel.Dock="Top" Height="23">
+                <MenuItem Header="Main" RenderTransformOrigin="-1.896,0.643" HorizontalAlignment="Left" Width="44" Height="23">
+                    <MenuItem Header="Reset, Ctrl+R" Click="MenuItem_Click_Reset"/>
+                    <MenuItem Header="Save As, Ctrl+Shift+S" Click="MenuItem_Click_Save_As"/>
+                    <MenuItem Header="Save, Ctrl+S" Click="MenuItem_Click_Save"/>
+                    <MenuItem Header="Open, Ctrl+O" Click="MenuItem_Click_Open"/>
+                    <MenuItem Header="Exit, Esc" Click="MenuItem_Click_Exit"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Name="pane" Margin="0,1,0,-1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Name="pane2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Shape" Grid.Row="0" Grid.Column="0" Height="25" VerticalAlignment="Stretch"/>
+                <Label Content="Fill Color" Grid.Row="1" Grid.Column="0" Height="25" VerticalAlignment="Stretch"/>
+                <Label Content="Stroke Size" Grid.Row="2" Grid.Column="0" Height="25" VerticalAlignment="Stretch"/>
+                <Label Content="Stroke Color" Grid.Row="3" Grid.Column="0" Height="25" VerticalAlignment="Stretch"/>
+                <Label Content="Eraser" Grid.Row="4" Grid.Column="0" VerticalAlignment="Stretch" Height="25"/>
+                <Label Content="Coords:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Bottom" Height="25"/>
+
+                <ComboBox x:Name="ComboBox_Shape" ItemsSource="{Binding shapesComboBox}" SelectedIndex="{Binding selectedIndexShapes, Mode=TwoWay}" IsEnabled="{Binding comboBoxEnabled, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="SelectionChanged_Shape" Grid.Row="0" Grid.Column="1" Height="20" Width="50"/>
+                <ComboBox x:Name="ComboBox_FillColor" ItemsSource="{Binding fillColorComboBox}" SelectedIndex="{Binding selectedIndexFillColor, Mode=TwoWay}" IsEnabled="{Binding comboBoxEnabled, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="SelectionChanged_Fill" Grid.Row="1" Grid.Column="1" Height="20" Width="50"/>
+                <TextBox x:Name="TextBox_Thickness" Text="{Binding strokeThicknessNumber}" TextChanged="Thickness_TextChanged" Grid.Row="2" Grid.Column="1" Width="45" Height="20"  Margin="2,8,2,7"/>
+                <ComboBox x:Name="ComboBox_StrokeColor" ItemsSource="{Binding strokeColorComboBox}" IsEnabled="{Binding comboBoxEnabled, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding selectedIndexStrokeColor, Mode=TwoWay}" SelectionChanged="SelectionChanged_Stroke" Grid.Row="3" Grid.Column="1" VerticalAlignment="Stretch" Height="20" Width="50"/>
+                <CheckBox x:Name="CheckBox_Eraser" Grid.Row="4" Grid.Column="1" Width="50" Height="20" Margin="0, 12, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" Checked="CheckBox_Eraser_Checked" Unchecked="CheckBox_Eraser_Unchecked" IsChecked="{Binding isChecked}" ToolTip="Check on for Eraser and vince versa. Size of eraser determined by stroke thickness."/>
+                <Label x:Name="label" Content="{Binding cursorCords, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="5" Height="25" Width="75"/>
+            </Grid>
+
+            <Border Name ="border" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black" Grid.Column="1" BorderThickness="2">
+                <Canvas x:Name="canvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClipToBounds="True" Cursor="{Binding canvasCursor, UpdateSourceTrigger=PropertyChanged}" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" MouseUp="Canvas_MouseUp">
+                    <Canvas.Background>
+                        <SolidColorBrush Color="White" Opacity="0"/>
+                    </Canvas.Background>
+                </Canvas>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
