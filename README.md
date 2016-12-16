@@ -1,4 +1,5 @@
 # Drawing-App-Prototype
+# LIN_YU_HW4 is the OLD ORIGINAL version. Please download Project for the newest version.
 Based off Homework 4 from Windowing Systems Programming. This prototype adds additional features consisting of additional shapes. 
 Original homework requirements will be attached as a PDF. And, at a later time, mvvm, save, load, more shapes, and etc will be added.
 
